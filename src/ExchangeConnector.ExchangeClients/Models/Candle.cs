@@ -41,4 +41,15 @@ public class Candle
     /// Время
     /// </summary>
     public DateTimeOffset OpenTime { get; set; }
+
+    public override string ToString()
+    {
+        return $"Валютная пара: {Pair}\n" +
+               $"Цена открытия: {OpenPrice}\n" +
+               $"Максимальная цена: {HighPrice}\n" +
+               $"Минимальная цена: {LowPrice}\n" +
+               $"Цена закрытия: {ClosePrice}\n" +
+               $"Общий объем: {TotalVolume}\n" +
+               $"Время: {OpenTime}\n";
+    }
 }

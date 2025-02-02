@@ -11,7 +11,7 @@ using static System.Decimal;
 
 namespace ExchangeConnector.ExchangeClients.Clients.Rest;
 
-public sealed class BinanceRestClient : IRestTestConnector
+public sealed class BinanceRestClient : IRestExchangeConnector
 {
     private readonly BaseRestApi<BinanceRequest> _restApi;
 

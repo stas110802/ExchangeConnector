@@ -1,4 +1,5 @@
 ﻿using ExchangeConnector.ExchangeClients.Types;
+using Newtonsoft.Json;
 
 namespace ExchangeConnector.ExchangeClients.Models;
 
@@ -33,4 +34,14 @@ public class Trade
     /// Id трейда
     /// </summary>
     public string Id { get; set; }
+
+    public override string ToString()
+    {
+        return $"Валютная пара: {Pair}\n" +
+               $"Цена трейда: {Price}\n" +
+               $"Объем трейда: {Amount}\n" +
+               $"Тип: {Side}\n" +
+               $"Время трейда: {Time}\n" +
+               $"Id трейда: {Id}";
+    }
 }
