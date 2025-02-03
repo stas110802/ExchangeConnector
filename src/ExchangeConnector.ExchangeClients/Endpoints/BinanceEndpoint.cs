@@ -8,5 +8,5 @@ public class BinanceEndpoint : BaseType
 
     public static readonly BinanceEndpoint Trades = new("/api/v3/trades");
     public static readonly BinanceEndpoint Candles = new("/api/v3/klines");
-
+    public static readonly BinanceEndpoint Ticker = new("/api/v3/ticker/24hr");
 }

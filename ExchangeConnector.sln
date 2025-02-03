@@ -6,6 +6,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9F67BFD8
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExchangeConnector.ExchangeClients.UnitTest", "tests\ExchangeConnector.ExchangeClients.UnitTest\ExchangeConnector.ExchangeClients.UnitTest.csproj", "{5C41A22A-C3FC-4F33-A0AF-04FA5D53A9EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExchangeConnector.UI", "src\ExchangeConnector.UI\ExchangeConnector.UI.csproj", "{CBDDE9E1-5661-43AD-8F0C-42DCF2B338A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{5C41A22A-C3FC-4F33-A0AF-04FA5D53A9EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C41A22A-C3FC-4F33-A0AF-04FA5D53A9EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C41A22A-C3FC-4F33-A0AF-04FA5D53A9EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBDDE9E1-5661-43AD-8F0C-42DCF2B338A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBDDE9E1-5661-43AD-8F0C-42DCF2B338A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBDDE9E1-5661-43AD-8F0C-42DCF2B338A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBDDE9E1-5661-43AD-8F0C-42DCF2B338A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5C41A22A-C3FC-4F33-A0AF-04FA5D53A9EF} = {9F67BFD8-E222-4726-9154-B2E2900EAD78}

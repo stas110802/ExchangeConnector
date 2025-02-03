@@ -7,7 +7,6 @@ using ExchangeConnector.ExchangeClients.RestApi;
 using ExchangeConnector.ExchangeClients.Types;
 using ExchangeConnector.ExchangeClients.Utilities;
 using Newtonsoft.Json.Linq;
-using static System.Decimal;
 
 namespace ExchangeConnector.ExchangeClients.Clients.Rest;
 
@@ -27,8 +26,8 @@ public sealed class BinanceRestClient : IRestExchangeConnector
 
         var query = $"?symbol={pair}&limit={maxCount}";
         var response = (await _restApi
-            .CreateRequest(MethodType.Get, BinanceEndpoint.Trades, query)
-            .ExecuteAsync())
+                .CreateRequest(MethodType.Get, BinanceEndpoint.Trades, query)
+                .ExecuteAsync())
             .FromJson<JToken>();
 
         var result = new List<Trade>();
@@ -36,16 +35,16 @@ public sealed class BinanceRestClient : IRestExchangeConnector
         {
             var time = trade["time"]
                 .GetDateTimeFromUTimeMilliseconds();
-            
+
             var side = SideType.Buy;
-            if(trade["isBuyerMaker"].ToObject<bool>() == false)
+            if (trade["isBuyerMaker"].ToObject<bool>() == false)
                 side = SideType.Sell;
-            
+
             result.Add(new Trade
             {
+                Price = trade["price"].ToObject<decimal>(),
+                Amount = trade["qty"].ToObject<decimal>(),
                 Pair = pair,
-                Price = trade["price"].ToDecimal(),
-                Amount = trade["qty"].ToDecimal(),
                 Side = side,
                 Time = time,
                 Id = trade["id"].ToString()
@@ -69,8 +68,8 @@ public sealed class BinanceRestClient : IRestExchangeConnector
 
         var query = queryBuilder.ToString();
         var response = (await _restApi
-            .CreateRequest(MethodType.Get, BinanceEndpoint.Candles, query)
-            .ExecuteAsync())
+                .CreateRequest(MethodType.Get, BinanceEndpoint.Candles, query)
+                .ExecuteAsync())
             .FromJson<JToken>();
 
         var result = new List<Candle>();
@@ -79,16 +78,40 @@ public sealed class BinanceRestClient : IRestExchangeConnector
             var time = item[0].GetDateTimeFromUTimeMilliseconds();
             result.Add(new Candle
             {
-                OpenPrice = item[1].ToDecimal(),
-                HighPrice = item[2].ToDecimal(),
-                LowPrice = item[3].ToDecimal(),
-                ClosePrice = item[4].ToDecimal(),
-                TotalVolume = item[5].ToDecimal(),
+                OpenPrice = item[1].ToObject<decimal>(),
+                HighPrice = item[2].ToObject<decimal>(),
+                LowPrice = item[3].ToObject<decimal>(),
+                ClosePrice = item[4].ToObject<decimal>(),
+                TotalVolume = item[5].ToObject<decimal>(),
                 OpenTime = time,
                 Pair = pair
             });
         }
 
         return result;
+    }
+
+    public async Task<Ticker> GetTickerAsync(string pair)
+    {
+        try
+        {
+            var query = $"?symbol={pair}&type=MINI";
+            var response = (await _restApi
+                    .CreateRequest(MethodType.Get, BinanceEndpoint.Ticker, query)
+                    .ExecuteAsync())
+                .FromJson<JToken>();
+            return new Ticker
+            {
+                Symbol = pair,
+                LastPrice = response["lastPrice"].ToObject<decimal>(),
+                HighPrice = response["highPrice"].ToObject<decimal>(),
+                LowPrice = response["lowPrice"].ToObject<decimal>(),
+                Volume = response["volume"].ToObject<decimal>()
+            };
+        }
+        catch (Exception)
+        {
+            return new Ticker();
+        }
     }
 }

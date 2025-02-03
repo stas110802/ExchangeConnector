@@ -3,7 +3,6 @@ using ExchangeConnector.ExchangeClients.Models;
 using ExchangeConnector.ExchangeClients.Options;
 using ExchangeConnector.ExchangeClients.Types;
 using ExchangeConnector.ExchangeClients.Utilities;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using WebSocketSharp;
 
@@ -96,10 +95,25 @@ public sealed class BinanceSocketClient : ISocketExchangeConnector
     {
         Unsubscribe(_candlesSocket, pair);
     }
+    
+    public void Dispose()
+    {
+        CloseAllSocket(_tradesSocket);
+        CloseAllSocket(_candlesSocket);
+    }
 
     private void Unsubscribe(Dictionary<string, WebSocket> sockets, string key)
     {
-        sockets[key].Close();
+        var isSuc = sockets.TryGetValue(key, out var websocket);
+        if(isSuc == false) return; 
+        
+        websocket?.Close();
         sockets.Remove(key);
+    }
+
+    private static void CloseAllSocket(Dictionary<string, WebSocket> sockets)
+    {
+        foreach (var socket in sockets)
+            socket.Value.Close();
     }
 }

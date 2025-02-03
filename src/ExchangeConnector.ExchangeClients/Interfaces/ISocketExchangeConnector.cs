@@ -3,7 +3,7 @@ using ExchangeConnector.ExchangeClients.Types;
 
 namespace ExchangeConnector.ExchangeClients.Interfaces;
 
-public interface ISocketExchangeConnector
+public interface ISocketExchangeConnector : IDisposable
 {
     event Action<Trade> NewBuyTrade;
     event Action<Trade> NewSellTrade;
