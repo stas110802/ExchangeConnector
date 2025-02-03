@@ -1,6 +1,5 @@
 ﻿using ExchangeConnector.ExchangeClients;
 using ExchangeConnector.ExchangeClients.Clients.Rest;
-using ExchangeConnector.ExchangeClients.Options;
 
 namespace ExchangeConnector.UI.MVVM.ViewModels;
 

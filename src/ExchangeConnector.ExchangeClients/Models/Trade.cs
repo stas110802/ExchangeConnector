@@ -1,5 +1,4 @@
 ﻿using ExchangeConnector.ExchangeClients.Types;
-using Newtonsoft.Json;
 
 namespace ExchangeConnector.ExchangeClients.Models;
 
