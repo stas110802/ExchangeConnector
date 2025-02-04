@@ -1,0 +1,122 @@
+﻿<Window x:Class="ExchangeConnector.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ExchangeConnector.UI"
+        xmlns:viewmodels="clr-namespace:ExchangeConnector.UI.MVVM.ViewModels"
+        d:DataContext="{d:DesignInstance Type=viewmodels:MainWindowVM}"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="550" 
+        Width="900" ResizeMode="CanMinimize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
+        <StackPanel Grid.Row="0" Grid.Column="1">
+            <Border Height="50"/>
+            <TextBlock Text="Обший баланс портфеля"
+                       HorizontalAlignment="Center"
+                       FontSize="25"
+                       Foreground="#343a40"
+                       FontFamily="Helvetica"                          
+                       Height="25"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="1" 
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="BTC - "
+                           HorizontalAlignment="Center"
+                           FontSize="25"
+                           Foreground="#343a40"
+                           FontFamily="Helvetica"                          
+                           Height="25"/>
+                <TextBlock Text="{Binding BtcTotalBalance,  StringFormat=0.00}"
+                           HorizontalAlignment="Center"
+                           FontSize="25"
+                           Foreground="#343a40"
+                           FontFamily="Helvetica"                          
+                           Height="25"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="USDT - "
+                           HorizontalAlignment="Center"
+                           FontSize="25"
+                           Foreground="#343a40"
+                           FontFamily="Helvetica"                          
+                           Height="25"/>
+                <TextBlock Text="{Binding UsdtTotalBalance,  StringFormat=0.00}"
+                           HorizontalAlignment="Center"
+                           FontSize="25"
+                           Foreground="#343a40"
+                           FontFamily="Helvetica"                          
+                           Height="25"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="XRP - "
+                           HorizontalAlignment="Center"
+                           FontSize="25"
+                           Foreground="#343a40"
+                           FontFamily="Helvetica"                          
+                           Height="25"/>
+                <TextBlock Text="{Binding XrpTotalBalance,  StringFormat=0.00}"
+                           HorizontalAlignment="Center"
+                           FontSize="25"
+                           Foreground="#343a40"
+                           FontFamily="Helvetica"                          
+                           Height="25"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="XMR - "
+                           HorizontalAlignment="Center"
+                           FontSize="25"
+                           Foreground="#343a40"
+                           FontFamily="Helvetica"                          
+                           Height="25"/>
+                <TextBlock Text="{Binding XmrTotalBalance,  StringFormat=0.00}"
+                           HorizontalAlignment="Center"
+                           FontSize="25"
+                           Foreground="#343a40"
+                           FontFamily="Helvetica"                          
+                           Height="25"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="DASH - "
+                           HorizontalAlignment="Center"
+                           FontSize="25"
+                           Foreground="#343a40"
+                           FontFamily="Helvetica"                          
+                           Height="25"/>
+                <TextBlock Text="{Binding DashTotalBalance,  StringFormat=0.00}"
+                           HorizontalAlignment="Center"
+                           FontSize="25"
+                           Foreground="#343a40"
+                           FontFamily="Helvetica"                          
+                           Height="25"/>
+            </StackPanel>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="2" Grid.Column="1">
+           <Button Width="120" 
+                   Command="{Binding RefreshBalanceCommand}"
+                   Height="60"
+                   Content="Обновить"
+                   HorizontalAlignment="Center"
+                   FontSize="20"
+                   Foreground="#343a40"
+                   FontFamily="Helvetica"/>
+        </StackPanel>
+    </Grid>
+</Window>
