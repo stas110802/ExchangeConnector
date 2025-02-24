@@ -1,6 +1,4 @@
-﻿using ExchangeConnector.ExchangeClients.Clients.Rest;
-using ExchangeConnector.ExchangeClients.Clients.Socket;
-using ExchangeConnector.ExchangeClients.Interfaces;
+﻿using ExchangeConnector.ExchangeClients.Clients.Socket;
 using ExchangeConnector.ExchangeClients.Models;
 using ExchangeConnector.ExchangeClients.Types;
 
@@ -9,7 +7,7 @@ namespace ExchangeConnector.ExchangeClients.UnitTest;
 public class BinanceWebSocketClientTest : IDisposable
 {
     private ISocketExchangeConnector _client;
-    const string currencyPair = "ETHUSDT";
+    private const string CurrencyPair = "ETHUSDT";
 
     [SetUp]
     public void StartUp()
@@ -19,11 +17,11 @@ public class BinanceWebSocketClientTest : IDisposable
     }
 
     [Test]
-    public void Test()
+    public void TradesAndCandleTest()
     {
         var isSuccessful = true;
-        _client.SubscribeTrades(currencyPair);
-        _client.SubscribeCandles(currencyPair, CandleType.FifteenMin);
+        _client.SubscribeTrades(CurrencyPair);
+        _client.SubscribeCandles(CurrencyPair, CandleType.FifteenMin);
 
         _client.NewBuyTrade += trade => { TradeTest(trade, SideType.Buy); };
         _client.NewSellTrade += trade => { TradeTest(trade, SideType.Sell); };
@@ -34,11 +32,11 @@ public class BinanceWebSocketClientTest : IDisposable
                 isSuccessful = false;
             var random = new Random().Next(0, 10);
             if (random == 5)
-                _client.UnsubscribeCandles(currencyPair);
+                _client.UnsubscribeCandles(CurrencyPair);
         };
 
-        _client.UnsubscribeTrades(currencyPair);
-        _client.UnsubscribeCandles(currencyPair);
+        _client.UnsubscribeTrades(CurrencyPair);
+        _client.UnsubscribeCandles(CurrencyPair);
         
         Assert.That(isSuccessful, Is.True);
         return;
@@ -50,7 +48,7 @@ public class BinanceWebSocketClientTest : IDisposable
                 isSuccessful = false;
             var random = new Random().Next(0, 10);
             if (random == 5)
-                _client.UnsubscribeTrades(currencyPair);
+                _client.UnsubscribeTrades(CurrencyPair);
             Thread.Sleep(500);
         }
     }

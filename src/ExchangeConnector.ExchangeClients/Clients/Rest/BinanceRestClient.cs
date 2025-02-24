@@ -1,6 +1,6 @@
-﻿using System.Text;
+﻿using System.Globalization;
+using System.Text;
 using ExchangeConnector.ExchangeClients.Endpoints;
-using ExchangeConnector.ExchangeClients.Interfaces;
 using ExchangeConnector.ExchangeClients.Models;
 using ExchangeConnector.ExchangeClients.Options;
 using ExchangeConnector.ExchangeClients.RestApi;
@@ -113,5 +113,46 @@ public sealed class BinanceRestClient : IRestExchangeConnector
         {
             return new Ticker();
         }
+    }
+
+    public async Task<decimal> CalculateMonthSpreadAsync(string pair)
+    {
+        var currentPrice = (await GetTickerAsync(pair)).LastPrice;
+        var futurePrice = await GetFuturePriceBySomeAlgoAsync(pair);
+
+        return futurePrice - currentPrice;
+    }
+
+    private async Task<decimal> GetFuturePriceBySomeAlgoAsync(string symbol)
+    {
+        var historicalPrices = await GetSomePricesAsync(symbol);
+        var averagePrice = historicalPrices.Average();
+
+        return averagePrice;
+    }
+    
+    private async Task<List<decimal>> GetSomePricesAsync(string symbol)
+    {
+        var prices = new List<decimal>();
+
+        var query = $"?symbol={symbol}&interval=1d&limit=300&startTime={GetStartTimeForDaysAgo(30)}";
+        var response = await _restApi
+            .CreateRequest(MethodType.Get, BinanceEndpoint.Candles, query)
+            .ExecuteAsync();
+
+        var json = response.FromJson<JArray>();
+        if (json.Count <= 0) return prices;
+
+        prices.AddRange(json.Select(item =>
+                decimal.Parse(item[4].ToString(), CultureInfo.InvariantCulture)));
+
+        return prices;
+    }
+
+    private long GetStartTimeForDaysAgo(int daysAgo)
+    {
+        var date = DateTime.UtcNow.AddDays(-daysAgo).Date;
+
+        return new DateTimeOffset(date).ToUnixTimeMilliseconds();
     }
 }

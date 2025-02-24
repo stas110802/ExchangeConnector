@@ -1,5 +1,4 @@
-﻿using ExchangeConnector.ExchangeClients.Interfaces;
-using ExchangeConnector.ExchangeClients.Models;
+﻿using ExchangeConnector.ExchangeClients.Models;
 using ExchangeConnector.ExchangeClients.Options;
 using ExchangeConnector.ExchangeClients.Types;
 using ExchangeConnector.ExchangeClients.Utilities;

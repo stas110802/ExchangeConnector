@@ -1,7 +1,7 @@
 ﻿using ExchangeConnector.ExchangeClients.Models;
 using ExchangeConnector.ExchangeClients.Types;
 
-namespace ExchangeConnector.ExchangeClients.Interfaces;
+namespace ExchangeConnector.ExchangeClients.Clients.Socket;
 
 public interface ISocketExchangeConnector : IDisposable
 {
